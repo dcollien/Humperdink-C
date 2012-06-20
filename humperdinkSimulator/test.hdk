@@ -1,0 +1,40 @@
+{
+	"angle":3.14,
+	"length":40.0,
+	"connections": [
+		{
+			"angle":1.57,
+			"length":20.0,
+			"frequency":3.0,
+			"amplitude":3.14,
+			"phase":2.10,
+			"connections": [
+				{
+					"angle":0.0,
+					"length":40.0,
+					"frequency":6.0,
+					"amplitude":0.4,
+					"phase":0.0,
+					"connections": []
+				}
+			]
+		},
+		{
+			"angle":-1.57,
+			"length":20.0,
+			"frequency":3.0,
+			"amplitude":3.14,
+			"phase":4.20,
+			"connections": [
+				{
+					"angle":0.0,
+					"length":40.0,
+					"frequency":6.0,
+					"amplitude":0.4,
+					"phase":0.0,
+					"connections": []
+				}
+			]
+		}
+	]
+}

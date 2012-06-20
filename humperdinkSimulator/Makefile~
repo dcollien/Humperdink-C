@@ -1,0 +1,56 @@
+NAME       = simulator
+OBJS       = display.o drawSpace.o environment.o main.o creature.o
+LIB_PATH   = ./Chipmunk/src/
+LIB_OBJS   = $(LIB_PATH)chipmunk.o \
+             $(LIB_PATH)cpArbiter.o \
+             $(LIB_PATH)cpArray.o \
+             $(LIB_PATH)cpBB.o \
+             $(LIB_PATH)cpBody.o \
+             $(LIB_PATH)cpCollision.o \
+             $(LIB_PATH)cpHashSet.o \
+             $(LIB_PATH)cpPolyShape.o \
+             $(LIB_PATH)cpShape.o \
+             $(LIB_PATH)cpSpace.o \
+             $(LIB_PATH)cpSpaceHash.o \
+             $(LIB_PATH)cpVect.o \
+             $(LIB_PATH)constraints/cpConstraint.o \
+             $(LIB_PATH)constraints/cpDampedRotarySpring.o \
+             $(LIB_PATH)constraints/cpDampedSpring.o \
+             $(LIB_PATH)constraints/cpGearJoint.o \
+             $(LIB_PATH)constraints/cpGrooveJoint.o \
+             $(LIB_PATH)constraints/cpOscillatingMotor.o \
+             $(LIB_PATH)constraints/cpPinJoint.o \
+             $(LIB_PATH)constraints/cpPivotJoint.o \
+             $(LIB_PATH)constraints/cpRatchetJoint.o \
+             $(LIB_PATH)constraints/cpRotaryLimitJoint.o \
+             $(LIB_PATH)constraints/cpSimpleMotor.o \
+             $(LIB_PATH)constraints/cpSlideJoint.o
+INC_PATH   = ./Chipmunk/include/chipmunk/
+JANSSON_INC= ./jansson-1.2/bin/
+OBJECTS    = $(OBJS) $(LIB_OBJS)
+
+ifeq ($(shell uname),Darwin)
+	CFLAGS     = -I$(INC_PATH) -I$(JANSSON_INC) -framework OpenGL -framework GLUT -lm -DNDEBUG -ffast-math -O2 -ljansson
+else
+	CFLAGS     = -I$(INC_PATH) -I$(JANSSON_INC) -lGL -lglut -lm -DNDEBUG -I/usr/X11R6/include -L/usr/X11R6/lib -ffast-math -O2 -ljansson
+endif
+
+COMPILE = gcc -Wall $(CFLAGS) -std=gnu99
+
+# symbolic targets:
+all:	$(NAME)
+
+.c.o:
+	$(COMPILE) -c $< -o $@
+
+.S.o:
+	$(COMPILE) -x assembler-with-cpp -c $< -o $@
+
+.c.s:
+	$(COMPILE) -S $< -o $@
+
+clean:
+	rm -f $(NAME) $(OBJECTS)
+
+$(NAME): $(OBJECTS)
+	$(COMPILE) -o $(NAME) $(OBJECTS)
